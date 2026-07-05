@@ -24,6 +24,7 @@ export function Navbar() {
   const { t, locale } = useLanguage();
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const panelRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -38,6 +39,22 @@ export function Navbar() {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  // Drawer a11y: Escape closes it, focus moves into the panel on open and
+  // returns to the trigger (the hamburger) on close.
+  React.useEffect(() => {
+    if (!mobileOpen) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    panelRef.current?.querySelector<HTMLElement>("a, button")?.focus();
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      previouslyFocused?.focus?.();
     };
   }, [mobileOpen]);
 
@@ -136,7 +153,8 @@ export function Navbar() {
         id="mobile-menu"
         role="dialog"
         aria-modal="true"
-        aria-hidden={!mobileOpen}
+        aria-label={siteConfig.dealership.name}
+        inert={!mobileOpen}
         className={cn(
           "fixed inset-0 z-40 lg:hidden",
           mobileOpen ? "pointer-events-auto" : "pointer-events-none",
@@ -152,6 +170,7 @@ export function Navbar() {
         />
         {/* Panel */}
         <div
+          ref={panelRef}
           className={cn(
             "absolute inset-x-0 top-0 flex flex-col gap-8 border-b border-hairline bg-surface px-6 pb-8 pt-24 shadow-elevated transition-transform duration-300 ease-out",
             mobileOpen ? "translate-y-0" : "-translate-y-full",
@@ -164,7 +183,7 @@ export function Navbar() {
                   <a
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 font-display text-2xl font-semibold text-foreground transition-colors hover:border-hairline hover:bg-surface-elevated"
+                    className="flex items-center justify-between rounded-2xl border border-transparent px-4 py-3 font-display text-2xl font-semibold text-foreground transition-colors hover:border-hairline hover:bg-surface-elevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
                     <span>{t.nav[item.key]}</span>
                     <span

@@ -98,7 +98,7 @@ export function HeroSection() {
             variants={fadeUp}
             className="mt-4 flex flex-wrap items-center gap-3"
           >
-            <Button asChild size="lg" variant="default">
+            <Button asChild size="lg" variant="gold">
               <a href="#inventaire">
                 {t.cta.viewInventory}
                 <ArrowRight aria-hidden="true" className="rtl:rotate-180" />

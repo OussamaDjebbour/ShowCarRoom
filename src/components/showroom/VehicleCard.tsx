@@ -83,6 +83,7 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
               src={heroImage}
               alt={`${brand} ${model} ${year}`}
               loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
             />
           ) : (
@@ -153,7 +154,6 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
             size="default"
             className="flex-1"
             onClick={() => onView?.(vehicle)}
-            disabled={reserved}
           >
             Voir le véhicule
             <ArrowUpRight />

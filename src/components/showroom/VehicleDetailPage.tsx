@@ -42,6 +42,8 @@ export function VehicleDetailPage({
   onClose,
   locale = "fr",
 }: VehicleDetailPageProps) {
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+
   // Lock body scroll while open, restore on close/unmount.
   React.useEffect(() => {
     if (typeof document === "undefined") return;
@@ -64,11 +66,55 @@ export function VehicleDetailPage({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
+  // Focus management: move focus into the dialog on open, trap Tab within it,
+  // and restore focus to the previously-focused element (the trigger) on close.
+  React.useEffect(() => {
+    if (!open || !vehicle) return;
+    const node = dialogRef.current;
+    if (!node) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const focusable = () =>
+      Array.from(
+        node.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((el) => el.offsetParent !== null);
+
+    (focusable()[0] ?? node).focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const items = focusable();
+      if (items.length === 0) {
+        e.preventDefault();
+        node.focus();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    node.addEventListener("keydown", onKeyDown);
+    return () => {
+      node.removeEventListener("keydown", onKeyDown);
+      previouslyFocused?.focus?.();
+    };
+  }, [open, vehicle]);
+
   return (
     <AnimatePresence>
       {open && vehicle ? (
         <motion.div
           key={vehicle.id}
+          ref={dialogRef}
+          tabIndex={-1}
           role="dialog"
           aria-modal="true"
           aria-label={`${vehicle.brand} ${vehicle.model} ${vehicle.year}`}
@@ -76,7 +122,7 @@ export function VehicleDetailPage({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[70] overflow-y-auto bg-background/95 backdrop-blur-2xl"
+          className="fixed inset-0 z-[70] overflow-y-auto bg-background/95 backdrop-blur-2xl focus:outline-none"
         >
           <DetailContent vehicle={vehicle} onClose={onClose} locale={locale} />
         </motion.div>
@@ -114,7 +160,7 @@ function DetailContent({
         <button
           type="button"
           onClick={onClose}
-          className="text-body-sm inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-4 py-2 font-medium text-foreground/85 backdrop-blur transition-colors hover:border-gold/40 hover:text-foreground"
+          className="text-body-sm inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-hairline bg-surface/60 px-4 py-2 font-medium text-foreground/85 backdrop-blur transition-colors hover:border-gold/40 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden />
           {label("Retour à l'inventaire", "العودة إلى المعرض")}
@@ -123,7 +169,7 @@ function DetailContent({
           type="button"
           onClick={onClose}
           aria-label={label("Fermer", "إغلاق")}
-          className="grid size-10 place-items-center rounded-full border border-hairline bg-surface/60 text-foreground/85 backdrop-blur transition-colors hover:border-destructive/50 hover:text-foreground"
+          className="grid size-11 cursor-pointer place-items-center rounded-full border border-hairline bg-surface/60 text-foreground/85 backdrop-blur transition-colors hover:border-destructive/50 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <X className="size-4" aria-hidden />
         </button>
@@ -304,7 +350,7 @@ function PriceCard({
                 type="button"
                 onClick={copyPhone}
                 aria-label={label("Copier le numéro", "نسخ الرقم")}
-                className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-background/40 px-3 py-1.5 text-xs font-medium text-foreground/85 transition-colors hover:border-gold/50 hover:text-gold"
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-hairline bg-background/40 px-3 py-2 text-xs font-medium text-foreground/85 transition-colors hover:border-gold/50 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 {copied ? (
                   <>

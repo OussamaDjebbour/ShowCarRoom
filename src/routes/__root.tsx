@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { MotionConfig } from "framer-motion";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
@@ -125,12 +126,16 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <RootLayout>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </RootLayout>
-      </LanguageProvider>
+      {/* reducedMotion="user" makes all Framer Motion animations honor the OS
+          prefers-reduced-motion setting; CSS transitions are gated in styles.css. */}
+      <MotionConfig reducedMotion="user">
+        <LanguageProvider>
+          <RootLayout>
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </RootLayout>
+        </LanguageProvider>
+      </MotionConfig>
     </QueryClientProvider>
   );
 

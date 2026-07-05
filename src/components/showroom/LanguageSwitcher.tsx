@@ -45,7 +45,7 @@ export function LanguageSwitcher({
         onClick={() => setLocale("fr")}
         aria-pressed={locale === "fr"}
         className={cn(
-          "cursor-pointer rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors",
+          "cursor-pointer rounded-full px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           locale === "fr"
             ? "bg-gold text-gold-foreground"
             : "text-muted-foreground hover:text-foreground",
@@ -59,7 +59,7 @@ export function LanguageSwitcher({
         aria-pressed={locale === "ar"}
         lang="ar"
         className={cn(
-          "cursor-pointer rounded-full px-3 py-1 text-xs font-semibold transition-colors",
+          "cursor-pointer rounded-full px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           locale === "ar"
             ? "bg-gold text-gold-foreground"
             : "text-muted-foreground hover:text-foreground",

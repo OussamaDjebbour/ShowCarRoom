@@ -45,9 +45,6 @@ export const ContactCTA = React.forwardRef<HTMLElement, ContactCTAProps>(
   ) => {
     const callHref = `tel:${callPhone.replace(/[^\d+]/g, "")}`;
 
-    // In RTL, WhatsApp should lead the CTA row visually — flex-row-reverse.
-    const isRtl = locale === "ar";
-
     return (
       <section
         ref={ref}
@@ -73,12 +70,9 @@ export const ContactCTA = React.forwardRef<HTMLElement, ContactCTAProps>(
               </p>
             ) : null}
 
-            <div
-              className={cn(
-                "mt-8 flex flex-wrap gap-3",
-                isRtl && "flex-row-reverse",
-              )}
-            >
+            {/* Order flows via `dir` on <html>: WhatsApp (first child) leads —
+                left in LTR, right in RTL. No manual flex-row-reverse needed. */}
+            <div className="mt-8 flex flex-wrap gap-3">
               <WhatsAppButton
                 phone={whatsappPhone}
                 message={whatsappMessage}

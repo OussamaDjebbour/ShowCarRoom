@@ -22,16 +22,22 @@ export function VehicleGallery({
 }) {
   const [index, setIndex] = React.useState(0);
   const total = images.length;
+  const rootRef = React.useRef<HTMLDivElement>(null);
 
   const go = React.useCallback(
     (dir: 1 | -1) => setIndex((i) => (i + dir + total) % total),
     [total],
   );
 
+  // Arrow-key navigation, scoped to when focus is inside the gallery (so it
+  // never hijacks arrows used for page scroll). Direction is flipped in RTL.
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") go(1);
-      if (e.key === "ArrowLeft") go(-1);
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      if (!rootRef.current?.contains(document.activeElement)) return;
+      const rtl = document.documentElement.dir === "rtl";
+      if (e.key === "ArrowRight") go(rtl ? -1 : 1);
+      else go(rtl ? 1 : -1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -40,7 +46,7 @@ export function VehicleGallery({
   if (total === 0) return null;
 
   return (
-    <div className={cn("flex flex-col gap-4", className)}>
+    <div ref={rootRef} className={cn("flex flex-col gap-4", className)}>
       <div className="surface-card group relative aspect-[16/10] overflow-hidden">
         <AnimatePresence mode="wait" initial={false}>
           <motion.img
@@ -62,7 +68,7 @@ export function VehicleGallery({
               type="button"
               onClick={() => go(-1)}
               aria-label="Image précédente"
-              className="absolute start-4 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-hairline bg-background/70 text-foreground/90 opacity-0 backdrop-blur-xl transition-all hover:border-gold/50 hover:text-gold group-hover:opacity-100 focus-visible:opacity-100"
+              className="absolute start-4 top-1/2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-hairline bg-background/70 text-foreground/90 opacity-0 backdrop-blur-xl transition-all hover:border-gold/50 hover:text-gold group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <ChevronLeft className="size-5 rtl:rotate-180" aria-hidden />
             </button>
@@ -70,7 +76,7 @@ export function VehicleGallery({
               type="button"
               onClick={() => go(1)}
               aria-label="Image suivante"
-              className="absolute end-4 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-hairline bg-background/70 text-foreground/90 opacity-0 backdrop-blur-xl transition-all hover:border-gold/50 hover:text-gold group-hover:opacity-100 focus-visible:opacity-100"
+              className="absolute end-4 top-1/2 z-10 grid size-11 -translate-y-1/2 cursor-pointer place-items-center rounded-full border border-hairline bg-background/70 text-foreground/90 opacity-0 backdrop-blur-xl transition-all hover:border-gold/50 hover:text-gold group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <ChevronRight className="size-5 rtl:rotate-180" aria-hidden />
             </button>
@@ -96,7 +102,7 @@ export function VehicleGallery({
               aria-label={`Voir l'image ${i + 1}`}
               aria-current={i === index}
               className={cn(
-                "relative aspect-[16/10] overflow-hidden rounded-lg border transition-all",
+                "relative aspect-[16/10] cursor-pointer overflow-hidden rounded-lg border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 i === index
                   ? "border-gold shadow-[0_0_0_2px_var(--color-gold)]"
                   : "border-hairline opacity-70 hover:opacity-100",
