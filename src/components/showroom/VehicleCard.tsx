@@ -122,12 +122,14 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
           </div>
           <div className="text-right shrink-0">
             <p className="text-caption text-muted-foreground">Prix</p>
-            <p className="text-h3 mt-1 text-gold">{formatPriceDzd(priceDzd, locale)}</p>
+            <p className="text-odometer mt-1 text-lg text-gold">
+              {formatPriceDzd(priceDzd, locale)}
+            </p>
           </div>
         </header>
 
         {/* Spec row */}
-        <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-hairline px-6 pt-4 sm:grid-cols-4">
+        <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-hairline px-6 pt-4">
           <SpecItem icon={Calendar} label="Année" value={String(year)} />
           <SpecItem icon={Gauge} label="Kilométrage" value={formatMileage(mileageKm, locale)} />
           <SpecItem icon={Fuel} label="Carburant" value={fuelLabel[fuel]} />
@@ -184,11 +186,11 @@ function SpecItem({
     <div className="min-w-0">
       <div className="flex items-center gap-1.5 text-muted-foreground">
         <Icon className="size-3.5" strokeWidth={1.75} aria-hidden />
-        <span className="text-[10px] uppercase tracking-[0.14em] font-semibold">
+        <span className="font-mono text-[10px] uppercase tracking-[0.12em] font-medium truncate">
           {label}
         </span>
       </div>
-      <p className="text-body-sm mt-1 truncate text-foreground">{value}</p>
+      <p className="text-data mt-1 truncate text-sm text-foreground">{value}</p>
     </div>
   );
 }

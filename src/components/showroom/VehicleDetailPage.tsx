@@ -311,7 +311,7 @@ function PriceCard({
         <p className="text-caption text-muted-foreground">
           {label("Prix affiché", "السعر المعروض")}
         </p>
-        <p className="text-display-lg mt-2 text-gold tabular-nums" dir="ltr">
+        <p className="text-odometer mt-2 text-4xl text-gold" dir="ltr">
           {formatPriceDzd(vehicle.priceDzd, locale)}
         </p>
         {vehicle.priceDzd != null ? (

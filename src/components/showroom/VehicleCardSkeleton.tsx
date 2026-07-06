@@ -21,7 +21,7 @@ export function VehicleCardSkeleton() {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-hairline px-6 pt-4 sm:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-hairline px-6 pt-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="space-y-2">
             <Skeleton className="h-3 w-14" />

@@ -27,7 +27,7 @@ const buttonVariants = cva(
         gold:
           "bg-gold text-gold-foreground shadow-[var(--shadow-gold)] hover:brightness-110 hover:-translate-y-[1px] active:translate-y-0",
         outline:
-          "border border-gold/40 text-foreground bg-transparent hover:bg-gold/10 hover:border-gold",
+          "border border-needle/40 text-foreground bg-transparent hover:bg-needle/10 hover:border-needle",
         ghost:
           "bg-transparent text-foreground/80 hover:text-foreground hover:bg-accent/60",
         whatsapp:

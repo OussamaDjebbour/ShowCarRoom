@@ -76,12 +76,12 @@ export function VehicleSpecs({
             >
               <div className="text-muted-foreground flex items-center gap-1.5">
                 <item.icon className="size-3.5 text-gold" strokeWidth={1.75} aria-hidden />
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.14em]">
+                <dt className="font-mono text-[10px] font-medium uppercase tracking-[0.12em]">
                   {item.label}
                 </dt>
               </div>
               <dd
-                className="text-body-sm mt-2 font-medium text-foreground"
+                className="text-data mt-2 text-sm text-foreground"
                 {...(item.ltr ? { dir: "ltr" } : {})}
               >
                 {item.value}
@@ -137,7 +137,7 @@ function SpecRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between gap-4 bg-surface/40 px-4 py-3">
       <dt className="text-body-sm text-muted-foreground">{label}</dt>
-      <dd className="text-body-sm font-medium text-foreground tabular-nums">{value}</dd>
+      <dd className="text-data text-sm text-foreground">{value}</dd>
     </div>
   );
 }

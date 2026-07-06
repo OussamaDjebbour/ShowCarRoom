@@ -3,28 +3,26 @@ import { motion } from "framer-motion";
 import { ShieldCheck, MapPin, Sparkles, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Gauge } from "./Gauge";
 import { TrustBadge } from "./TrustBadge";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { useLanguage } from "@/lib/i18n";
 import { siteConfig } from "@/lib/siteConfig";
+import { featuredVehicles } from "@/lib/mockData";
 import { cn } from "@/lib/utils";
 
 /**
- * HeroSection — the editorial opening of the Oran showroom home page.
+ * HeroSection — the "Cluster" thesis. Left: nameplate headline + build-sheet
+ * eyebrow + CTAs. Right: the signature tachometer, which runs the ignition
+ * needle-sweep on load and settles on the live curated stock count.
  *
- * Composition:
- *   - Ambient radial + soft gold wash (no image dependency; swap for a real
- *     photo of the showroom floor before the client meeting).
- *   - Eyebrow · display headline · supporting body.
- *   - Primary CTA row: "Voir l'inventaire" (gold) + WhatsApp.
- *   - Credibility strip of 4 TrustBadges (agréé · garantie · financement · Oran).
- *
- * RTL: no fixed ordering — flex flows via `dir`. WhatsApp stays the trailing
- * action in FR and the leading action in AR because it's the second child of
- * a flex row that reverses under RTL. Both directions read naturally.
+ * RTL: order flows via `dir` on <html>; no fixed left/right.
  */
 export function HeroSection() {
   const { t, locale } = useLanguage();
+
+  const stock = featuredVehicles.length;
+  const stockMax = Math.max(8, Math.ceil(stock / 5) * 5);
 
   const waMessage =
     locale === "ar"
@@ -41,23 +39,20 @@ export function HeroSection() {
     locale === "ar"
       ? "سيارات مختارة بعناية، فحص فني كامل، وضمان الشفافية في كل معاملة."
       : "Des véhicules sélectionnés à la main, contrôlés en atelier, et une transparence totale sur chaque dossier.";
+  const stockLabel = locale === "ar" ? "متوفرة · وهران" : "en stock · Oran";
+  const selfTest =
+    locale === "ar" ? "فحص ذاتي · مخزون مباشر" : "auto-test · stock en direct";
 
   return (
-    <section
-      className="relative isolate overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-48 lg:pb-32"
-    >
-      {/* Ambient background */}
+    <section className="relative isolate overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
+      {/* Ambient backlight — cool needle glow near the cluster, warm redline low */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,_oklch(0.28_0.02_265)_0%,_var(--color-background)_55%)]"
+        className="absolute end-[-8%] top-8 -z-10 h-[460px] w-[460px] rounded-full bg-needle/10 blur-3xl"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(ellipse_at_top,_oklch(0.78_0.11_82_/_0.18),_transparent_70%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-32 end-[-10%] -z-10 h-[420px] w-[420px] rounded-full bg-gold/10 blur-3xl"
+        className="absolute -bottom-32 start-[-10%] -z-10 h-[420px] w-[420px] rounded-full bg-gold/10 blur-3xl"
       />
 
       <motion.div
@@ -67,18 +62,13 @@ export function HeroSection() {
           hidden: {},
           show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
         }}
-        className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 sm:px-6 lg:gap-16 lg:px-8"
+        className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-10 lg:px-8"
       >
-        <div className="flex flex-col gap-6 lg:max-w-3xl">
-          <motion.div variants={fadeUp}>
-            <TrustBadge
-              icon={Sparkles}
-              label={eyebrow}
-              variant="line"
-              size="sm"
-              className="self-start"
-            />
-          </motion.div>
+        {/* Text column */}
+        <div className="flex flex-col gap-6">
+          <motion.p variants={fadeUp} className="text-eyebrow">
+            {eyebrow}
+          </motion.p>
 
           <motion.h1
             variants={fadeUp}
@@ -87,17 +77,11 @@ export function HeroSection() {
             {headline}
           </motion.h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="text-body-lg text-muted-foreground max-w-2xl"
-          >
+          <motion.p variants={fadeUp} className="text-body-lg text-muted-foreground max-w-xl">
             {sub}
           </motion.p>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-4 flex flex-wrap items-center gap-3"
-          >
+          <motion.div variants={fadeUp} className="mt-4 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" variant="gold">
               <a href="#inventaire">
                 {t.cta.viewInventory}
@@ -112,23 +96,38 @@ export function HeroSection() {
             />
             <a
               href={`tel:${siteConfig.dealership.phone.replace(/\s/g, "")}`}
-              className="text-body-sm text-muted-foreground hover:text-foreground ms-2 inline-flex items-center gap-2 transition-colors"
+              className="text-body-sm text-muted-foreground hover:text-foreground ms-2 inline-flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full"
             >
               <span className="hidden sm:inline">
                 {locale === "ar" ? "أو اتصل بنا" : "ou appelez-nous"}
               </span>
-              <span dir="ltr" className="tabular-nums font-medium text-foreground/90">
+              <span dir="ltr" className="text-data font-medium text-foreground/90">
                 {siteConfig.dealership.phone}
               </span>
             </a>
           </motion.div>
         </div>
 
-        {/* Credibility strip */}
-        <motion.div variants={fadeUp}>
-          <CredibilityStrip />
+        {/* Cluster column */}
+        <motion.div variants={fadeUp} className="relative flex flex-col items-center gap-3">
+          <div className="grain rounded-full">
+            <Gauge
+              variant="hero"
+              value={stock}
+              max={stockMax}
+              readout={String(stock)}
+              label={stockLabel}
+              className="w-[min(76vw,26rem)]"
+            />
+          </div>
+          <span className="text-caption text-muted-foreground/70">{selfTest}</span>
         </motion.div>
       </motion.div>
+
+      {/* Credibility strip */}
+      <div className="relative mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:mt-16 lg:px-8">
+        <CredibilityStrip />
+      </div>
     </section>
   );
 }
@@ -141,7 +140,6 @@ const fadeUp = {
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
-
 
 function CredibilityStrip() {
   const { locale } = useLanguage();
@@ -166,9 +164,7 @@ function CredibilityStrip() {
 
   return (
     <ul
-      className={cn(
-        "flex flex-wrap items-center gap-2 border-t border-hairline pt-8 sm:gap-3",
-      )}
+      className="flex flex-wrap items-center gap-2 border-t border-hairline pt-8 sm:gap-3"
       aria-label={locale === "ar" ? "ضمانات المعرض" : "Garanties du showroom"}
     >
       {items.map((item) => (
