@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 
 import { LanguageProvider } from "@/lib/i18n";
 import { RootLayout } from "@/layout/RootLayout";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -70,6 +71,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  // Admin routes render their own chrome (admin top bar) and skip the public
+  // Navbar/Footer. We detect them by path prefix.
+  const pathname = router.state.location.pathname;
+  const isAdmin = pathname.startsWith("/admin");
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -77,10 +83,18 @@ function RootComponent() {
           prefers-reduced-motion setting; CSS transitions are gated in styles.css. */}
       <MotionConfig reducedMotion="user">
         <LanguageProvider>
-          <RootLayout>
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
-          </RootLayout>
+          {isAdmin ? (
+            // Admin routes provide their own layout (src/routes/admin.tsx).
+            <>
+              <Outlet />
+              <Toaster richColors position="top-center" />
+            </>
+          ) : (
+            <RootLayout>
+              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+              <Outlet />
+            </RootLayout>
+          )}
         </LanguageProvider>
       </MotionConfig>
     </QueryClientProvider>
