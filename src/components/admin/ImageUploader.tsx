@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Upload, X, GripVertical, Loader2, ImageIcon } from "lucide-react";
+import { Upload, X, GripVertical, Loader as Loader2, Image as ImageIcon } from "lucide-react";
 
 import { supabase, CAR_IMAGES_BUCKET } from "@/lib/supabase";
 import { cn } from "@/lib/utils";

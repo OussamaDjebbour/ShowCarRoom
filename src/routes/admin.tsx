@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
-import { Loader2, LogOut, LayoutDashboard, ExternalLink } from "lucide-react";
+import { Loader as Loader2, LogOut, LayoutDashboard, ExternalLink } from "lucide-react";
 
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";

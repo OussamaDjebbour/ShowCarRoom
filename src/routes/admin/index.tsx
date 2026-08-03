@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Plus, Pencil, Trash2, Star, Loader2, ImageIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, Loader as Loader2, Image as ImageIcon } from "lucide-react";
 
 import { useCars, useDeleteCar, useToggleFeatured } from "@/hooks/useCars";
 import { Button } from "@/components/ui/button";

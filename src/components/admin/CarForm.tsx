@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Loader2, Save, AlertCircle, Plus, Trash2 } from "lucide-react";
+import { Loader as Loader2, Save, CircleAlert as AlertCircle, Plus, Trash2 } from "lucide-react";
 
 import { useCreateCar, useUpdateCar } from "@/hooks/useCars";
 import { ImageUploader } from "./ImageUploader";

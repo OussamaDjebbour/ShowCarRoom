@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { LogIn, AlertCircle, Loader2, ArrowLeft } from "lucide-react";
+import { LogIn, CircleAlert as AlertCircle, Loader as Loader2, ArrowLeft } from "lucide-react";
 
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";

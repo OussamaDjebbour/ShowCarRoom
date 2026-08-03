@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Loader2, AlertCircle } from "lucide-react";
+import { Loader as Loader2, CircleAlert as AlertCircle } from "lucide-react";
 
 import { HeroSection } from "@/components/showroom/HeroSection";
 import { FeaturedVehicles } from "@/components/showroom/FeaturedVehicles";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { Loader as Loader2, ArrowLeft } from "lucide-react";
 
 import { CarForm } from "@/components/admin/CarForm";
 import { useCars } from "@/hooks/useCars";
