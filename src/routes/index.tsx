@@ -1,22 +1,23 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Loader as Loader2, CircleAlert as AlertCircle } from "lucide-react";
 
 import { HeroSection } from "@/components/showroom/HeroSection";
 import { FeaturedVehicles } from "@/components/showroom/FeaturedVehicles";
 import { ContactCTA } from "@/components/showroom/ContactCTA";
 import { VehicleDetailPage } from "@/components/showroom/VehicleDetailPage";
-import { featuredVehicles } from "@/lib/mockData";
+import { useFeaturedVehicles } from "@/hooks/useCars";
 import { siteConfig } from "@/lib/siteConfig";
 import { useLanguage } from "@/lib/i18n";
 import type { Vehicle } from "@/lib/vehicles";
 
-// Stage 5 + 6 — Home page + state-toggle detail overlay.
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
   const { locale } = useLanguage();
+  const { data: vehicles, isLoading, isError } = useFeaturedVehicles(locale);
   const [selected, setSelected] = React.useState<Vehicle | null>(null);
 
   const headline =
@@ -34,8 +35,25 @@ function Index() {
 
   return (
     <>
-      <HeroSection />
-      <FeaturedVehicles vehicles={featuredVehicles} onView={setSelected} />
+      <HeroSection stockCount={vehicles?.length ?? 0} />
+      {isError ? (
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="surface-card flex items-center gap-3 p-6 text-destructive">
+            <AlertCircle className="size-5 shrink-0" aria-hidden />
+            <span className="text-body-sm">
+              {locale === "ar"
+                ? "تعذر تحميل المخزون. يرجى المحاولة مرة أخرى لاحقاً."
+                : "Impossible de charger l'inventaire. Veuillez réessayer plus tard."}
+            </span>
+          </div>
+        </div>
+      ) : (
+        <FeaturedVehicles
+          vehicles={vehicles ?? []}
+          loading={isLoading}
+          onView={setSelected}
+        />
+      )}
       <div id="contact" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-24 sm:px-6 lg:px-8">
         <ContactCTA
           headline={headline}

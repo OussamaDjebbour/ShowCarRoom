@@ -77,6 +77,12 @@ export function Footer() {
           >
             {siteConfig.dealership.email}
           </a>
+          <a
+            href="/admin/login"
+            className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground/60 transition-colors hover:text-foreground"
+          >
+            {locale === "ar" ? "لوحة التحكم" : "Admin"}
+          </a>
         </div>
       </div>
 

@@ -8,7 +8,6 @@ import { TrustBadge } from "./TrustBadge";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { useLanguage } from "@/lib/i18n";
 import { siteConfig } from "@/lib/siteConfig";
-import { featuredVehicles } from "@/lib/mockData";
 import { cn } from "@/lib/utils";
 
 /**
@@ -18,10 +17,10 @@ import { cn } from "@/lib/utils";
  *
  * RTL: order flows via `dir` on <html>; no fixed left/right.
  */
-export function HeroSection() {
+export function HeroSection({ stockCount = 0 }: { stockCount?: number }) {
   const { t, locale } = useLanguage();
 
-  const stock = featuredVehicles.length;
+  const stock = stockCount;
   const stockMax = Math.max(8, Math.ceil(stock / 5) * 5);
 
   const waMessage =
