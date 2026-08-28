@@ -48,11 +48,32 @@ export function VehicleSpecs({
   const isAr = locale === "ar";
   const label = (fr: string, ar: string) => (isAr ? ar : fr);
 
-  const core: Array<{ icon: React.ComponentType<{ className?: string; strokeWidth?: number; "aria-hidden"?: boolean }>; label: string; value: string; ltr?: boolean }> = [
+  const core: Array<{
+    icon: React.ComponentType<{
+      className?: string;
+      strokeWidth?: number;
+      "aria-hidden"?: boolean;
+    }>;
+    label: string;
+    value: string;
+    ltr?: boolean;
+  }> = [
     { icon: Calendar, label: label("Année", "السنة"), value: String(vehicle.year), ltr: true },
-    { icon: Gauge, label: label("Kilométrage", "المسافة"), value: formatMileage(vehicle.mileageKm, locale) },
-    { icon: Fuel, label: label("Carburant", "الوقود"), value: isAr ? fuelLabelAr[vehicle.fuel] : fuelLabelFr[vehicle.fuel] },
-    { icon: Cog, label: label("Boîte", "ناقل الحركة"), value: isAr ? boxLabelAr[vehicle.transmission] : boxLabelFr[vehicle.transmission] },
+    {
+      icon: Gauge,
+      label: label("Kilométrage", "المسافة"),
+      value: formatMileage(vehicle.mileageKm, locale),
+    },
+    {
+      icon: Fuel,
+      label: label("Carburant", "الوقود"),
+      value: isAr ? fuelLabelAr[vehicle.fuel] : fuelLabelFr[vehicle.fuel],
+    },
+    {
+      icon: Cog,
+      label: label("Boîte", "ناقل الحركة"),
+      value: isAr ? boxLabelAr[vehicle.transmission] : boxLabelFr[vehicle.transmission],
+    },
     ...(vehicle.bodyStyle
       ? [{ icon: Car, label: label("Carrosserie", "الهيكل"), value: vehicle.bodyStyle }]
       : []),
@@ -93,15 +114,10 @@ export function VehicleSpecs({
 
       {vehicle.specs && vehicle.specs.length > 0 ? (
         <section aria-label={label("Performance & motorisation", "الأداء والمحرك")}>
-          <p className="text-eyebrow">
-            {label("Performance & motorisation", "الأداء والمحرك")}
-          </p>
+          <p className="text-eyebrow">{label("Performance & motorisation", "الأداء والمحرك")}</p>
           <dl className="mt-4 divide-y divide-hairline overflow-hidden rounded-xl border border-hairline">
             {vehicle.engineDisplacement ? (
-              <SpecRow
-                label={label("Motorisation", "المحرك")}
-                value={vehicle.engineDisplacement}
-              />
+              <SpecRow label={label("Motorisation", "المحرك")} value={vehicle.engineDisplacement} />
             ) : null}
             {vehicle.specs.map((s) => (
               <SpecRow key={s.label} label={s.label} value={s.value} />
@@ -115,10 +131,7 @@ export function VehicleSpecs({
           <p className="text-eyebrow">{label("Équipement", "التجهيزات")}</p>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {vehicle.equipment.map((eq) => (
-              <li
-                key={eq}
-                className="text-body-sm flex items-start gap-2 text-foreground/90"
-              >
+              <li key={eq} className="text-body-sm flex items-start gap-2 text-foreground/90">
                 <span
                   aria-hidden
                   className="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-gold"

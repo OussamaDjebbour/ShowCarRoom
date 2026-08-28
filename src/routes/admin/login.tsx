@@ -69,9 +69,7 @@ function AdminLogin() {
             PM
           </span>
           <h1 className="text-h1 text-foreground">Espace propriétaire</h1>
-          <p className="text-body-sm text-muted-foreground mt-2">
-            {siteConfig.dealership.name}
-          </p>
+          <p className="text-body-sm text-muted-foreground mt-2">{siteConfig.dealership.name}</p>
         </div>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>

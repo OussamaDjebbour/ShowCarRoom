@@ -14,6 +14,14 @@ import { rowToVehicle } from "@/lib/vehicles";
 
 const CARS_KEY = ["cars"] as const;
 
+async function requireAuthenticatedUser() {
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) {
+    throw new Error("Votre session administrateur a expiré. Veuillez vous reconnecter.");
+  }
+  return data.user;
+}
+
 /** Fetch all cars as DB rows (admin list — includes sold/unfeatured). */
 export function useCars() {
   return useQuery<CarRow[]>({
@@ -82,6 +90,7 @@ export function useCreateCar() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (input: CarInput) => {
+      await requireAuthenticatedUser();
       const { data, error } = await supabase.from("cars").insert(input).select().single();
       if (error) throw error;
       return data as CarRow;
@@ -100,6 +109,7 @@ export function useUpdateCar() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, input }: { id: string; input: CarInput }) => {
+      await requireAuthenticatedUser();
       const { data, error } = await supabase
         .from("cars")
         .update(input)
@@ -123,6 +133,7 @@ export function useDeleteCar() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      await requireAuthenticatedUser();
       const { error } = await supabase.from("cars").delete().eq("id", id);
       if (error) throw error;
     },
@@ -140,6 +151,7 @@ export function useToggleFeatured() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, featured }: { id: string; featured: boolean }) => {
+      await requireAuthenticatedUser();
       const { error } = await supabase.from("cars").update({ featured }).eq("id", id);
       if (error) throw error;
     },

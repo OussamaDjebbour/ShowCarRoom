@@ -155,9 +155,7 @@ export function CarForm({ car }: CarFormProps) {
   const updateCar = useUpdateCar();
   const isEdit = !!car;
 
-  const [form, setForm] = React.useState<FormState>(() =>
-    car ? rowToForm(car) : emptyForm(),
-  );
+  const [form, setForm] = React.useState<FormState>(() => (car ? rowToForm(car) : emptyForm()));
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [slugTouched, setSlugTouched] = React.useState(isEdit);
 
@@ -177,8 +175,7 @@ export function CarForm({ car }: CarFormProps) {
     if (!form.model.trim()) e.model = "Requis";
     const year = Number(form.year);
     if (!form.year.trim() || isNaN(year)) e.year = "Année invalide";
-    else if (year < 1900 || year > new Date().getFullYear() + 1)
-      e.year = "Année hors plage";
+    else if (year < 1900 || year > new Date().getFullYear() + 1) e.year = "Année hors plage";
     if (form.priceEnabled) {
       const p = Number(form.price_dzd);
       if (!form.price_dzd.trim() || isNaN(p)) e.price_dzd = "Prix invalide";
@@ -190,10 +187,12 @@ export function CarForm({ car }: CarFormProps) {
     if (!form.body_style.trim()) e.body_style = "Requis";
     if (!form.color.trim()) e.color = "Requis";
     if (!form.engine_displacement.trim()) e.engine_displacement = "Requis";
-    if (!form.tagline_fr.trim() && !form.tagline_ar.trim()) e.tagline = "Au moins une langue requise";
+    if (!form.tagline_fr.trim() && !form.tagline_ar.trim())
+      e.tagline = "Au moins une langue requise";
     else if (!form.tagline_fr.trim()) e.tagline = "Le français est vide";
     else if (!form.tagline_ar.trim()) e.tagline = "L'arabe est vide";
-    if (!form.description_fr.trim() && !form.description_ar.trim()) e.description = "Au moins une langue requise";
+    if (!form.description_fr.trim() && !form.description_ar.trim())
+      e.description = "Au moins une langue requise";
     else if (!form.description_fr.trim()) e.description = "Le français est vide";
     else if (!form.description_ar.trim()) e.description = "L'arabe est vide";
     if (!form.slug.trim()) e.slug = "Requis";
@@ -267,28 +266,58 @@ export function CarForm({ car }: CarFormProps) {
             />
           </Field>
           <Field label="Carburant" required>
-            <Select value={form.fuel} onChange={(v) => set("fuel", v as FuelType)} options={fuelOptions} />
+            <Select
+              value={form.fuel}
+              onChange={(v) => set("fuel", v as FuelType)}
+              options={fuelOptions}
+            />
           </Field>
           <Field label="Boîte" required>
-            <Select value={form.transmission} onChange={(v) => set("transmission", v as Transmission)} options={transmissionOptions} />
+            <Select
+              value={form.transmission}
+              onChange={(v) => set("transmission", v as Transmission)}
+              options={transmissionOptions}
+            />
           </Field>
           <Field label="État" required>
-            <Select value={form.condition} onChange={(v) => set("condition", v as VehicleCondition)} options={conditionOptions} />
+            <Select
+              value={form.condition}
+              onChange={(v) => set("condition", v as VehicleCondition)}
+              options={conditionOptions}
+            />
           </Field>
           <Field label="Carrosserie" error={errors.body_style} required>
-            <Input value={form.body_style} onChange={(e) => set("body_style", e.target.value)} placeholder="SUV, Berline…" />
+            <Input
+              value={form.body_style}
+              onChange={(e) => set("body_style", e.target.value)}
+              placeholder="SUV, Berline…"
+            />
           </Field>
           <Field label="Couleur" error={errors.color} required>
             <Input value={form.color} onChange={(e) => set("color", e.target.value)} />
           </Field>
           <Field label="Motorisation" error={errors.engine_displacement} required>
-            <Input value={form.engine_displacement} onChange={(e) => set("engine_displacement", e.target.value)} placeholder="3.0 L V6" />
+            <Input
+              value={form.engine_displacement}
+              onChange={(e) => set("engine_displacement", e.target.value)}
+              placeholder="3.0 L V6"
+            />
           </Field>
           <Field label="Kilométrage (km)" error={errors.mileage_km} required>
-            <Input type="number" min="0" value={form.mileage_km} onChange={(e) => set("mileage_km", e.target.value)} dir="ltr" />
+            <Input
+              type="number"
+              min="0"
+              value={form.mileage_km}
+              onChange={(e) => set("mileage_km", e.target.value)}
+              dir="ltr"
+            />
           </Field>
           <Field label="Statut" required>
-            <Select value={form.status} onChange={(v) => set("status", v as VehicleStatus)} options={statusOptions} />
+            <Select
+              value={form.status}
+              onChange={(v) => set("status", v as VehicleStatus)}
+              options={statusOptions}
+            />
           </Field>
           <div className="flex items-end gap-3">
             <label className="flex cursor-pointer items-center gap-2 text-body-sm text-foreground/90">
@@ -422,7 +451,11 @@ export function CarForm({ car }: CarFormProps) {
 
       {/* Images */}
       <Section title="Photos" eyebrow="Étape 6">
-        <ImageUploader value={form.images} onChange={(urls) => set("images", urls)} carId={car?.id} />
+        <ImageUploader
+          value={form.images}
+          onChange={(urls) => set("images", urls)}
+          carId={car?.id}
+        />
       </Section>
 
       {/* Submit */}
@@ -456,7 +489,15 @@ export function CarForm({ car }: CarFormProps) {
 
 /* ─── Reusable form primitives ─── */
 
-function Section({ title, eyebrow, children }: { title: string; eyebrow: string; children: React.ReactNode }) {
+function Section({
+  title,
+  eyebrow,
+  children,
+}: {
+  title: string;
+  eyebrow: string;
+  children: React.ReactNode;
+}) {
   return (
     <section className="flex flex-col gap-4">
       <div>

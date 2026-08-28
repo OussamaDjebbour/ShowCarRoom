@@ -10,17 +10,12 @@ import { useLanguage } from "@/lib/i18n";
  * Kept small and self-contained so it can drop into the navbar (desktop)
  * and mobile drawer alike. Uses the design-system tokens only.
  */
-export interface LanguageSwitcherProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface LanguageSwitcherProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Compact variant hides the leading icon (mobile drawer / footer strip). */
   compact?: boolean;
 }
 
-export function LanguageSwitcher({
-  className,
-  compact = false,
-  ...props
-}: LanguageSwitcherProps) {
+export function LanguageSwitcher({ className, compact = false, ...props }: LanguageSwitcherProps) {
   const { locale, setLocale, t } = useLanguage();
 
   return (

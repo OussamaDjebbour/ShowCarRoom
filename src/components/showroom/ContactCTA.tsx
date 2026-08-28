@@ -48,10 +48,7 @@ export const ContactCTA = React.forwardRef<HTMLElement, ContactCTAProps>(
     return (
       <section
         ref={ref}
-        className={cn(
-          "surface-card relative overflow-hidden p-8 sm:p-12 lg:p-16",
-          className,
-        )}
+        className={cn("surface-card relative overflow-hidden p-8 sm:p-12 lg:p-16", className)}
         {...props}
       >
         {/* Ambient gold wash */}
@@ -65,9 +62,7 @@ export const ContactCTA = React.forwardRef<HTMLElement, ContactCTAProps>(
             <p className="text-eyebrow">Contactez le showroom</p>
             <h2 className="text-display-lg mt-4 text-balance">{headline}</h2>
             {subheadline ? (
-              <p className="text-body-lg mt-4 max-w-xl text-muted-foreground">
-                {subheadline}
-              </p>
+              <p className="text-body-lg mt-4 max-w-xl text-muted-foreground">{subheadline}</p>
             ) : null}
 
             {/* Order flows via `dir` on <html>: WhatsApp (first child) leads —

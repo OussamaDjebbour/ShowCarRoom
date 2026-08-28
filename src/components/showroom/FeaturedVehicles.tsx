@@ -34,10 +34,8 @@ export function FeaturedVehicles({
 }: FeaturedVehiclesProps) {
   const { t, locale } = useLanguage();
 
-  const eyebrow =
-    locale === "ar" ? "المعروض حالياً" : "Sélection du moment";
-  const heading =
-    locale === "ar" ? "سيارات جاهزة للتجربة" : "Véhicules prêts à essayer";
+  const eyebrow = locale === "ar" ? "المعروض حالياً" : "Sélection du moment";
+  const heading = locale === "ar" ? "سيارات جاهزة للتجربة" : "Véhicules prêts à essayer";
   const sub =
     locale === "ar"
       ? "قطع مختارة بعناية من مخزوننا الحالي. تواصل معنا على واتساب لحجز التجربة."
@@ -83,15 +81,10 @@ export function FeaturedVehicles({
           hidden: {},
           show: { transition: { staggerChildren: 0.09 } },
         }}
-        className={cn(
-          "grid gap-6 sm:gap-7",
-          "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-        )}
+        className={cn("grid gap-6 sm:gap-7", "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3")}
       >
         {loading
-          ? Array.from({ length: skeletonCount }).map((_, i) => (
-              <VehicleCardSkeleton key={i} />
-            ))
+          ? Array.from({ length: skeletonCount }).map((_, i) => <VehicleCardSkeleton key={i} />)
           : vehicles.map((vehicle) => (
               <motion.div
                 key={vehicle.id}

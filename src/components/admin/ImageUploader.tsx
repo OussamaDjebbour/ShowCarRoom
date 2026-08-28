@@ -33,6 +33,12 @@ export function ImageUploader({ value, onChange, carId }: ImageUploaderProps) {
     try {
       const newUrls: string[] = [];
       for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) {
+          throw new Error("Seuls les fichiers image sont acceptés.");
+        }
+        if (file.size > 10 * 1024 * 1024) {
+          throw new Error("Chaque image doit faire moins de 10 Mo.");
+        }
         const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
         const path = `${carId ?? crypto.randomUUID()}.${ext}`;
         const { error } = await supabase.storage

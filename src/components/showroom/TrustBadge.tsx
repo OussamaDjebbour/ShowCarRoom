@@ -41,8 +41,7 @@ const trustBadgeVariants = cva(
 );
 
 export interface TrustBadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof trustBadgeVariants> {
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof trustBadgeVariants> {
   icon?: LucideIcon;
   label: string;
 }
@@ -50,18 +49,8 @@ export interface TrustBadgeProps
 export const TrustBadge = React.forwardRef<HTMLDivElement, TrustBadgeProps>(
   ({ className, variant, size, icon: Icon, label, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn(trustBadgeVariants({ variant, size }), className)}
-        {...props}
-      >
-        {Icon ? (
-          <Icon
-            className="text-gold"
-            aria-hidden="true"
-            strokeWidth={1.75}
-          />
-        ) : null}
+      <div ref={ref} className={cn(trustBadgeVariants({ variant, size }), className)} {...props}>
+        {Icon ? <Icon className="text-gold" aria-hidden="true" strokeWidth={1.75} /> : null}
         <span className="tracking-wide">{label}</span>
       </div>
     );

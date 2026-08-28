@@ -178,13 +178,8 @@ function DetailContent({
       {/* Header */}
       <header className="mb-10 flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge
-            variant={vehicle.condition === "neuf" ? "solid" : "gold"}
-            size="sm"
-          >
-            {vehicle.condition === "neuf"
-              ? label("Neuf", "جديدة")
-              : label("Occasion", "مستعملة")}
+          <Badge variant={vehicle.condition === "neuf" ? "solid" : "gold"} size="sm">
+            {vehicle.condition === "neuf" ? label("Neuf", "جديدة") : label("Occasion", "مستعملة")}
           </Badge>
           {vehicle.reserved ? (
             <Badge variant="destructive" size="sm">
@@ -200,18 +195,13 @@ function DetailContent({
           </span>
         </h1>
         {vehicle.tagline ? (
-          <p className="text-body-lg text-muted-foreground max-w-2xl">
-            {vehicle.tagline}
-          </p>
+          <p className="text-body-lg text-muted-foreground max-w-2xl">{vehicle.tagline}</p>
         ) : null}
       </header>
 
       {/* Gallery + Summary card */}
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-10">
-        <VehicleGallery
-          images={vehicle.images}
-          alt={`${vehicle.brand} ${vehicle.model}`}
-        />
+        <VehicleGallery images={vehicle.images} alt={`${vehicle.brand} ${vehicle.model}`} />
 
         <PriceCard vehicle={vehicle} waMessage={waMessage} locale={locale} />
       </div>
@@ -220,9 +210,7 @@ function DetailContent({
       {vehicle.description ? (
         <section className="mt-14 max-w-3xl">
           <p className="text-eyebrow">{label("À propos", "عن السيارة")}</p>
-          <p className="text-body mt-4 text-foreground/90 leading-relaxed">
-            {vehicle.description}
-          </p>
+          <p className="text-body mt-4 text-foreground/90 leading-relaxed">{vehicle.description}</p>
         </section>
       ) : null}
 
@@ -235,10 +223,7 @@ function DetailContent({
       <section className="mt-16 border-t border-hairline pt-10">
         <ul className="flex flex-wrap gap-2 sm:gap-3">
           <li>
-            <TrustBadge
-              icon={ShieldCheck}
-              label={label("Concessionnaire agréé", "وكيل معتمد")}
-            />
+            <TrustBadge icon={ShieldCheck} label={label("Concessionnaire agréé", "وكيل معتمد")} />
           </li>
           <li>
             <TrustBadge
@@ -247,10 +232,7 @@ function DetailContent({
             />
           </li>
           <li>
-            <TrustBadge
-              icon={Banknote}
-              label={label("Financement disponible", "تمويل متاح")}
-            />
+            <TrustBadge icon={Banknote} label={label("Financement disponible", "تمويل متاح")} />
           </li>
           <li>
             <TrustBadge
@@ -302,11 +284,7 @@ function PriceCard({
   };
 
   return (
-    <aside
-      className={cn(
-        "surface-card sticky top-24 flex h-fit flex-col gap-6 p-6 sm:p-8",
-      )}
-    >
+    <aside className={cn("surface-card sticky top-24 flex h-fit flex-col gap-6 p-6 sm:p-8")}>
       <div>
         <p className="text-caption text-muted-foreground">
           {label("Prix affiché", "السعر المعروض")}
@@ -367,13 +345,7 @@ function PriceCard({
             </div>
           </div>
         ) : (
-          <Button
-            type="button"
-            variant="outline"
-            size="lg"
-            className="w-full"
-            onClick={onCall}
-          >
+          <Button type="button" variant="outline" size="lg" className="w-full" onClick={onCall}>
             <Phone aria-hidden />
             {label("Appeler le showroom", "اتصل بالمعرض")}
           </Button>

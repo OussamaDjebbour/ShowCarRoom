@@ -18,7 +18,7 @@ backend; inventory is static (`src/lib/mockData.ts`). Rebrand surface = `src/lib
 
 **Posture: the car as a backlit instrument.** Deep petrol surfaces, cool ice readouts, a
 tachometer signature, mono "build-sheet" data. Precision and trust over generic luxury. The
-identity is drawn from the automotive instrument cluster — deliberately *not* the "near-black +
+identity is drawn from the automotive instrument cluster — deliberately _not_ the "near-black +
 single warm accent" look this project used before.
 
 ---
@@ -35,21 +35,22 @@ single warm accent" look this project used before.
 Dark-first: `:root` and `.dark` are identical. Two illuminations with **assigned jobs** — this
 is the system, not decoration. Components reference semantic tokens only.
 
-| Token | oklch | Role |
-|---|---|---|
-| `background` | `0.20 0.018 202` | petrol base — a hue, not neutral black |
-| `foreground` | `0.95 0.006 190` | ice readout text |
-| `surface` / `card` | `0.26 0.019 200` | panels |
-| `surface-elevated` | `0.30 0.021 200` | raised panels |
-| **`needle`** (cool) | `0.77 0.10 196` | **live/interactive**: labels, focus, active/selected, gauge needle, secondary CTA (`outline`) |
-| **`gold`** = redline (warm) | `0.78 0.14 68` | **peak/convert**: primary CTA (`gold` variant), price, redline arc, "Réservé" |
-| `muted-foreground` | `0.71 0.02 197` | secondary text, gauge track/ticks |
-| `whatsapp` | `0.68 0.16 148` | WhatsApp brand green (fixed) |
-| `destructive` | `0.62 0.21 25` | errors / "Réservé" |
-| `border` / `hairline` / `input` | cool white @ 9% / 6% / 12% | backlit edges |
-| `ring` | `needle @ 65%` | focus |
+| Token                           | oklch                      | Role                                                                                          |
+| ------------------------------- | -------------------------- | --------------------------------------------------------------------------------------------- |
+| `background`                    | `0.20 0.018 202`           | petrol base — a hue, not neutral black                                                        |
+| `foreground`                    | `0.95 0.006 190`           | ice readout text                                                                              |
+| `surface` / `card`              | `0.26 0.019 200`           | panels                                                                                        |
+| `surface-elevated`              | `0.30 0.021 200`           | raised panels                                                                                 |
+| **`needle`** (cool)             | `0.77 0.10 196`            | **live/interactive**: labels, focus, active/selected, gauge needle, secondary CTA (`outline`) |
+| **`gold`** = redline (warm)     | `0.78 0.14 68`             | **peak/convert**: primary CTA (`gold` variant), price, redline arc, "Réservé"                 |
+| `muted-foreground`              | `0.71 0.02 197`            | secondary text, gauge track/ticks                                                             |
+| `whatsapp`                      | `0.68 0.16 148`            | WhatsApp brand green (fixed)                                                                  |
+| `destructive`                   | `0.62 0.21 25`             | errors / "Réservé"                                                                            |
+| `border` / `hairline` / `input` | cool white @ 9% / 6% / 12% | backlit edges                                                                                 |
+| `ring`                          | `needle @ 65%`             | focus                                                                                         |
 
 **Rules**
+
 - `--gold` is kept as the **alias for the warm accent** so existing `text-gold`/`bg-gold`/button
   `gold` utilities map onto the redline amber. `--needle` is the cool illumination; use `text-needle`,
   `bg-needle`, `border-needle`.
@@ -101,6 +102,7 @@ Numbers/prices/phones: `text-data`/`text-odometer` + `dir="ltr"`.
 `src/components/showroom/Gauge.tsx`. An SVG tach that runs the **ignition needle-sweep**
 (0 → redline → settle) on load and lands on a real reading. The cyan needle (with glow) is the
 live illumination; the amber redline zone near full-scale is the one warm accent.
+
 - **Hero:** large, reads the live curated stock count (`variant="hero"`).
 - Reusable (`variant="spec"`) for any bounded numeric where higher = more.
 - Reduced-motion: needle settles instantly, no sweep (via `MotionConfig`).

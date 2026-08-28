@@ -1,10 +1,6 @@
 import * as React from "react";
 
-import {
-  translations,
-  type Locale,
-  type Translations,
-} from "@/lib/siteConfig";
+import { translations, type Locale, type Translations } from "@/lib/siteConfig";
 
 /**
  * LanguageProvider — single source of truth for the active locale.
@@ -76,10 +72,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     [locale, dir, setLocale, toggle],
   );
 
-
-  return (
-    <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage(): LanguageContextValue {

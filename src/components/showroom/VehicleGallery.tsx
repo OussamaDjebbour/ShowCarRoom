@@ -108,12 +108,7 @@ export function VehicleGallery({
                   : "border-hairline opacity-70 hover:opacity-100",
               )}
             >
-              <img
-                src={src}
-                alt=""
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
+              <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
             </button>
           ))}
         </div>

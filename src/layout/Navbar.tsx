@@ -215,9 +215,7 @@ export function Navbar() {
               </span>
             </a>
             <div className="flex items-center justify-between pt-2">
-              <span className="text-caption text-muted-foreground">
-                {t.a11y.switchLanguage}
-              </span>
+              <span className="text-caption text-muted-foreground">{t.a11y.switchLanguage}</span>
               <LanguageSwitcher compact />
             </div>
           </div>

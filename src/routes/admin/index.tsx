@@ -95,7 +95,9 @@ function AdminInventory() {
                     deleteCar.mutate(car.id);
                     setPendingDelete(null);
                   }}
-                  onToggleFeatured={() => toggleFeatured.mutate({ id: car.id, featured: !car.featured })}
+                  onToggleFeatured={() =>
+                    toggleFeatured.mutate({ id: car.id, featured: !car.featured })
+                  }
                 />
               ))}
             </tbody>
@@ -113,7 +115,9 @@ function AdminInventory() {
                   deleteCar.mutate(car.id);
                   setPendingDelete(null);
                 }}
-                onToggleFeatured={() => toggleFeatured.mutate({ id: car.id, featured: !car.featured })}
+                onToggleFeatured={() =>
+                  toggleFeatured.mutate({ id: car.id, featured: !car.featured })
+                }
               />
             ))}
           </div>
@@ -269,7 +273,10 @@ function CarRowMobile({
             className="cursor-pointer rounded-full p-1.5 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Star
-              className={cn("size-5", car.featured ? "fill-gold text-gold" : "text-muted-foreground")}
+              className={cn(
+                "size-5",
+                car.featured ? "fill-gold text-gold" : "text-muted-foreground",
+              )}
               aria-hidden
             />
           </button>
