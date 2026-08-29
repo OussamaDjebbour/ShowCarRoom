@@ -45,7 +45,7 @@ export function FeaturedVehicles({
   if (!loading && count < 3) {
     // Defensive log for the pitch config — the spec requires 3–8.
     console.warn(
-      `[FeaturedVehicles] Expected 3–8 vehicles, received ${count}. Update mockData.ts.`,
+      `[FeaturedVehicles] Expected 3–8 vehicles, received ${count}. Check the live Supabase inventory.`,
     );
   }
 
