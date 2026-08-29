@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Loader as Loader2, LogOut, LayoutDashboard, ExternalLink } from "lucide-react";
 
 import { useAuth } from "@/hooks/useAuth";
@@ -20,12 +20,18 @@ export const Route = createFileRoute("/admin")({
 function AdminLayout() {
   const { session, loading, signOut } = useAuth();
   const navigate = useNavigate();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isLoginRoute = pathname === "/admin/login";
 
   React.useEffect(() => {
-    if (!loading && !session) {
+    if (!isLoginRoute && !loading && !session) {
       navigate({ to: "/admin/login", replace: true });
     }
-  }, [loading, session, navigate]);
+  }, [isLoginRoute, loading, session, navigate]);
+
+  if (isLoginRoute) {
+    return <Outlet />;
+  }
 
   if (loading || !session) {
     return (
