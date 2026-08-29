@@ -73,39 +73,61 @@ export function FeaturedVehicles({
         ) : null}
       </header>
 
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={{
-          hidden: {},
-          show: { transition: { staggerChildren: 0.09 } },
-        }}
-        className={cn("grid gap-6 sm:gap-7", "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3")}
-      >
-        {loading
-          ? Array.from({ length: skeletonCount }).map((_, i) => <VehicleCardSkeleton key={i} />)
-          : vehicles.map((vehicle) => (
-              <motion.div
-                key={vehicle.id}
-                variants={{
-                  hidden: { opacity: 0, y: 24 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-                  },
-                }}
-              >
-                <VehicleCard
-                  vehicle={vehicle}
-                  whatsappPhone={siteConfig.dealership.whatsapp}
-                  locale={locale}
-                  onView={onView}
-                />
-              </motion.div>
-            ))}
-      </motion.div>
+      {loading ? (
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
+          className={cn("grid gap-6 sm:gap-7", "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3")}
+        >
+          {Array.from({ length: skeletonCount }).map((_, i) => (
+            <VehicleCardSkeleton key={i} />
+          ))}
+        </motion.div>
+      ) : vehicles.length === 0 ? (
+        <div className="surface-card flex flex-col items-center gap-3 p-10 text-center">
+          <p className="text-body text-foreground">
+            {locale === "ar"
+              ? "لا توجد سيارات معروضة حالياً."
+              : "Aucun véhicule n'est disponible actuellement."}
+          </p>
+          <p className="text-body-sm text-muted-foreground">
+            {locale === "ar"
+              ? "تواصلوا معنا لمعرفة آخر العروض."
+              : "Contactez-nous pour connaître nos dernières offres."}
+          </p>
+        </div>
+      ) : (
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.09 } } }}
+          className={cn("grid gap-6 sm:gap-7", "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3")}
+        >
+          {vehicles.map((vehicle) => (
+            <motion.div
+              key={vehicle.id}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+                },
+              }}
+            >
+              <VehicleCard
+                vehicle={vehicle}
+                whatsappPhone={siteConfig.dealership.whatsapp}
+                locale={locale}
+                onView={onView}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
     </section>
   );
 }

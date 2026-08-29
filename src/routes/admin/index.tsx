@@ -56,7 +56,10 @@ function AdminInventory() {
       ) : isError ? (
         <div className="surface-card flex flex-col items-center gap-3 p-12 text-center">
           <p className="text-body text-destructive">Impossible de charger l'inventaire.</p>
-          <p className="text-body-sm text-muted-foreground">{String(error?.message ?? "")}</p>
+          <p className="text-body-sm text-muted-foreground">
+            Vérifiez votre connexion et réessayez. Si le problème persiste, contactez
+            l'administrateur.
+          </p>
         </div>
       ) : cars && cars.length === 0 ? (
         <div className="surface-card flex flex-col items-center gap-4 p-12 text-center">
