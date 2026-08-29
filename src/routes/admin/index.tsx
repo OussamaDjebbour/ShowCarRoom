@@ -56,7 +56,10 @@ function AdminInventory() {
       ) : isError ? (
         <div className="surface-card flex flex-col items-center gap-3 p-12 text-center">
           <p className="text-body text-destructive">Impossible de charger l'inventaire.</p>
-          <p className="text-body-sm text-muted-foreground">{String(error?.message ?? "")}</p>
+          <p className="text-body-sm text-muted-foreground">
+            Vérifiez votre connexion et réessayez. Si le problème persiste, contactez
+            l'administrateur.
+          </p>
         </div>
       ) : cars && cars.length === 0 ? (
         <div className="surface-card flex flex-col items-center gap-4 p-12 text-center">
@@ -95,7 +98,9 @@ function AdminInventory() {
                     deleteCar.mutate(car.id);
                     setPendingDelete(null);
                   }}
-                  onToggleFeatured={() => toggleFeatured.mutate({ id: car.id, featured: !car.featured })}
+                  onToggleFeatured={() =>
+                    toggleFeatured.mutate({ id: car.id, featured: !car.featured })
+                  }
                 />
               ))}
             </tbody>
@@ -113,7 +118,9 @@ function AdminInventory() {
                   deleteCar.mutate(car.id);
                   setPendingDelete(null);
                 }}
-                onToggleFeatured={() => toggleFeatured.mutate({ id: car.id, featured: !car.featured })}
+                onToggleFeatured={() =>
+                  toggleFeatured.mutate({ id: car.id, featured: !car.featured })
+                }
               />
             ))}
           </div>
@@ -269,7 +276,10 @@ function CarRowMobile({
             className="cursor-pointer rounded-full p-1.5 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Star
-              className={cn("size-5", car.featured ? "fill-gold text-gold" : "text-muted-foreground")}
+              className={cn(
+                "size-5",
+                car.featured ? "fill-gold text-gold" : "text-muted-foreground",
+              )}
               aria-hidden
             />
           </button>

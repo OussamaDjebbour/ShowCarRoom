@@ -91,11 +91,7 @@ export function Footer() {
           <span>
             © {year} {siteConfig.dealership.name}
           </span>
-          <span>
-            {locale === "ar"
-              ? "جميع الحقوق محفوظة"
-              : "Tous droits réservés"}
-          </span>
+          <span>{locale === "ar" ? "جميع الحقوق محفوظة" : "Tous droits réservés"}</span>
         </div>
       </div>
     </footer>

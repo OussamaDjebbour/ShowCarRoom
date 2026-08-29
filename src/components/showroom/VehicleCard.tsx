@@ -4,11 +4,7 @@ import { ArrowUpRight, Fuel, Gauge, Cog, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { WhatsAppButton } from "./WhatsAppButton";
-import {
-  type Vehicle,
-  formatPriceDzd,
-  formatMileage,
-} from "@/lib/vehicles";
+import { type Vehicle, formatPriceDzd, formatMileage } from "@/lib/vehicles";
 import { cn } from "@/lib/utils";
 
 /**
@@ -70,10 +66,7 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
     return (
       <article
         ref={ref}
-        className={cn(
-          "surface-card surface-card-hover group flex flex-col",
-          className,
-        )}
+        className={cn("surface-card surface-card-hover group flex flex-col", className)}
         {...props}
       >
         {/* Media */}
@@ -115,9 +108,7 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
             <p className="text-eyebrow">{brand}</p>
             <h3 className="text-h2 mt-1 truncate">{model}</h3>
             {tagline ? (
-              <p className="text-body-sm text-muted-foreground mt-2 line-clamp-2">
-                {tagline}
-              </p>
+              <p className="text-body-sm text-muted-foreground mt-2 line-clamp-2">{tagline}</p>
             ) : null}
           </div>
           <div className="text-right shrink-0">

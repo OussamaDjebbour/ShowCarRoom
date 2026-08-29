@@ -21,9 +21,7 @@ function Index() {
   const [selected, setSelected] = React.useState<Vehicle | null>(null);
 
   const headline =
-    locale === "ar"
-      ? "جاهز لاختبار قيادتك القادمة؟"
-      : "Prêt à essayer votre prochaine voiture ?";
+    locale === "ar" ? "جاهز لاختبار قيادتك القادمة؟" : "Prêt à essayer votre prochaine voiture ?";
   const sub =
     locale === "ar"
       ? "فريقنا في وهران متاح 6 أيام في الأسبوع لاستقبالك وترتيب تجربة القيادة."
@@ -48,11 +46,7 @@ function Index() {
           </div>
         </div>
       ) : (
-        <FeaturedVehicles
-          vehicles={vehicles ?? []}
-          loading={isLoading}
-          onView={setSelected}
-        />
+        <FeaturedVehicles vehicles={vehicles ?? []} loading={isLoading} onView={setSelected} />
       )}
       <div id="contact" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-24 sm:px-6 lg:px-8">
         <ContactCTA

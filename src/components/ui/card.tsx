@@ -13,10 +13,7 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
-        "surface-card text-card-foreground overflow-hidden",
-        className,
-      )}
+      className={cn("surface-card text-card-foreground overflow-hidden", className)}
       {...props}
     />
   ),

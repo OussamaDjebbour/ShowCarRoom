@@ -103,24 +103,27 @@ CREATE POLICY "public_select_cars"
   TO anon, authenticated
   USING (true);
 
--- Owner full CRUD (authenticated only)
+-- Authenticated inventory manager CRUD. The app has a single admin account;
+-- requiring auth.uid() prevents anonymous writes while keeping the shared
+-- inventory model independent of per-row user ownership.
 DROP POLICY IF EXISTS "owner_insert_cars" ON cars;
 CREATE POLICY "owner_insert_cars"
   ON cars FOR INSERT
   TO authenticated
-  WITH CHECK (true);
+  WITH CHECK ((select auth.uid()) IS NOT NULL);
 
 DROP POLICY IF EXISTS "owner_update_cars" ON cars;
 CREATE POLICY "owner_update_cars"
   ON cars FOR UPDATE
   TO authenticated
-  USING (true) WITH CHECK (true);
+  USING ((select auth.uid()) IS NOT NULL)
+  WITH CHECK ((select auth.uid()) IS NOT NULL);
 
 DROP POLICY IF EXISTS "owner_delete_cars" ON cars;
 CREATE POLICY "owner_delete_cars"
   ON cars FOR DELETE
   TO authenticated
-  USING (true);
+  USING ((select auth.uid()) IS NOT NULL);
 
 -- Helpful index for the public listing (featured first, newest first)
 CREATE INDEX IF NOT EXISTS cars_status_featured_created_at_idx

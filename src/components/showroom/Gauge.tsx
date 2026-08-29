@@ -128,14 +128,7 @@ export function Gauge({
       </motion.g>
       {/* Hub */}
       <circle cx={cx} cy={cy} r={7} fill="var(--color-surface-elevated)" />
-      <circle
-        cx={cx}
-        cy={cy}
-        r={7}
-        fill="none"
-        stroke="var(--color-needle)"
-        strokeWidth={1.5}
-      />
+      <circle cx={cx} cy={cy} r={7} fill="none" stroke="var(--color-needle)" strokeWidth={1.5} />
 
       {/* Centre readout */}
       <text

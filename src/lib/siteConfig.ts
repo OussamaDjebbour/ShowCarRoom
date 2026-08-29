@@ -117,4 +117,3 @@ export type Translations = {
     showroomBadge: string;
   };
 };
-

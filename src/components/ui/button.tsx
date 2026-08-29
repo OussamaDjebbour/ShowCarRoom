@@ -22,18 +22,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-secondary text-secondary-foreground border border-hairline hover:bg-accent",
-        gold:
-          "bg-gold text-gold-foreground shadow-[var(--shadow-gold)] hover:brightness-110 hover:-translate-y-[1px] active:translate-y-0",
+        default: "bg-secondary text-secondary-foreground border border-hairline hover:bg-accent",
+        gold: "bg-gold text-gold-foreground shadow-[var(--shadow-gold)] hover:brightness-110 hover:-translate-y-[1px] active:translate-y-0",
         outline:
           "border border-needle/40 text-foreground bg-transparent hover:bg-needle/10 hover:border-needle",
-        ghost:
-          "bg-transparent text-foreground/80 hover:text-foreground hover:bg-accent/60",
+        ghost: "bg-transparent text-foreground/80 hover:text-foreground hover:bg-accent/60",
         whatsapp:
           "bg-whatsapp text-whatsapp-foreground shadow-md hover:brightness-110 hover:-translate-y-[1px] active:translate-y-0",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:brightness-110",
+        destructive: "bg-destructive text-destructive-foreground hover:brightness-110",
         link: "text-gold underline-offset-4 hover:underline",
       },
       size: {
@@ -53,8 +49,7 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 

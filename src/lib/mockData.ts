@@ -7,8 +7,7 @@
  */
 import type { Vehicle } from "./vehicles";
 
-const img = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
+const img = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=80`;
 
 export const featuredVehicles: Vehicle[] = [
   {
@@ -27,7 +26,7 @@ export const featuredVehicles: Vehicle[] = [
     engineDisplacement: "2.0 L Turbo",
     tagline: "Pack AMG Line, intérieur cuir Nappa, ambiance 64 couleurs.",
     description:
-      "Berline premium entretenue exclusivement chez concessionnaire, carnet à jour, second propriétaire. Finition AMG Line intérieure et extérieure, jantes 19\", système MBUX avec double écran incurvé. Véhicule non fumeur, disponible pour essai sur rendez-vous.",
+      'Berline premium entretenue exclusivement chez concessionnaire, carnet à jour, second propriétaire. Finition AMG Line intérieure et extérieure, jantes 19", système MBUX avec double écran incurvé. Véhicule non fumeur, disponible pour essai sur rendez-vous.',
     images: [
       img("photo-1618843479313-40f8afb4b4d8"),
       img("photo-1552519507-da3b142c6e3d"),
@@ -41,7 +40,7 @@ export const featuredVehicles: Vehicle[] = [
       "Caméra 360° + assistance parking",
       "Éclairage d'ambiance 64 couleurs",
       "MBUX avec commande vocale",
-      "Jantes AMG 19\"",
+      'Jantes AMG 19"',
       "Apple CarPlay / Android Auto",
       "Régulateur adaptatif Distronic",
     ],
@@ -70,7 +69,7 @@ export const featuredVehicles: Vehicle[] = [
     engineDisplacement: "3.0 L 6-cyl",
     tagline: "M Sport Package, sièges chauffants, Harman Kardon.",
     description:
-      "SUV premium neuf, disponible immédiatement. Pack M Sport intégral, jantes M 21\", freins M Sport. Livré avec garantie constructeur 2 ans + extension possible. Financement sur mesure disponible.",
+      'SUV premium neuf, disponible immédiatement. Pack M Sport intégral, jantes M 21", freins M Sport. Livré avec garantie constructeur 2 ans + extension possible. Financement sur mesure disponible.',
     images: [
       img("photo-1555215695-3004980ad54e"),
       img("photo-1544636331-e26879cd4d9b"),
@@ -80,7 +79,7 @@ export const featuredVehicles: Vehicle[] = [
     highlights: ["M Sport", "Cuir Merino", "Head-up display"],
     equipment: [
       "Pack M Sport intégral",
-      "Jantes M 21\"",
+      'Jantes M 21"',
       "Sièges Merino ventilés",
       "Harman Kardon Surround",
       "Head-up display couleur",
@@ -125,7 +124,7 @@ export const featuredVehicles: Vehicle[] = [
       "7 places réelles",
       "Suspension pneumatique adaptative",
       "Phares Matrix LED HD",
-      "Virtual Cockpit 12.3\"",
+      'Virtual Cockpit 12.3"',
       "Bang & Olufsen 3D",
       "Sièges S line ventilés",
       "Ouverture coffre mains libres",
@@ -215,7 +214,7 @@ export const featuredVehicles: Vehicle[] = [
       "Système Bose Surround",
       "Sièges sport adaptatifs 18 réglages",
       "Volant sport GT chauffant",
-      "Jantes RS Spyder Design 21\"",
+      'Jantes RS Spyder Design 21"',
       "Aide au stationnement Surround View",
     ],
     specs: [
@@ -253,7 +252,7 @@ export const featuredVehicles: Vehicle[] = [
     highlights: ["Autopilot", "AWD", "Toit panoramique"],
     equipment: [
       "Autopilot avancé",
-      "Écran central 15\" tactile",
+      'Écran central 15" tactile',
       "Toit panoramique vitré fixe",
       "Sièges avant chauffants + ventilés",
       "Système audio premium 14 HP",

@@ -39,8 +39,7 @@ export function HeroSection({ stockCount = 0 }: { stockCount?: number }) {
       ? "سيارات مختارة بعناية، فحص فني كامل، وضمان الشفافية في كل معاملة."
       : "Des véhicules sélectionnés à la main, contrôlés en atelier, et une transparence totale sur chaque dossier.";
   const stockLabel = locale === "ar" ? "متوفرة · وهران" : "en stock · Oran";
-  const selfTest =
-    locale === "ar" ? "فحص ذاتي · مخزون مباشر" : "auto-test · stock en direct";
+  const selfTest = locale === "ar" ? "فحص ذاتي · مخزون مباشر" : "auto-test · stock en direct";
 
   return (
     <section className="relative isolate overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-44 lg:pb-28">
