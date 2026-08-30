@@ -32,16 +32,26 @@ export interface VehicleCardProps extends React.HTMLAttributes<HTMLElement> {
   onView?: (vehicle: Vehicle) => void;
 }
 
-const fuelLabel: Record<Vehicle["fuel"], string> = {
+const fuelLabelFr: Record<Vehicle["fuel"], string> = {
   essence: "Essence",
   diesel: "Diesel",
   hybride: "Hybride",
   electrique: "Électrique",
 };
+const fuelLabelAr: Record<Vehicle["fuel"], string> = {
+  essence: "بنزين",
+  diesel: "ديزل",
+  hybride: "هجين",
+  electrique: "كهربائية",
+};
 
-const transmissionLabel: Record<Vehicle["transmission"], string> = {
+const transmissionLabelFr: Record<Vehicle["transmission"], string> = {
   manuelle: "Manuelle",
   automatique: "Automatique",
+};
+const transmissionLabelAr: Record<Vehicle["transmission"], string> = {
+  manuelle: "يدوية",
+  automatique: "أوتوماتيكية",
 };
 
 export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
@@ -62,10 +72,13 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
     } = vehicle;
 
     const heroImage = images[0];
-    const waMessage =
-      locale === "ar"
-        ? `مرحبا، أنا مهتم بـ ${brand} ${model} (${year}) المعروضة على موقعكم.`
-        : `Bonjour, je suis intéressé par la ${brand} ${model} (${year}) publiée sur votre site.`;
+    const isAr = locale === "ar";
+    const t = (fr: string, ar: string) => (isAr ? ar : fr);
+    const fuelLabel = isAr ? fuelLabelAr : fuelLabelFr;
+    const transmissionLabel = isAr ? transmissionLabelAr : transmissionLabelFr;
+    const waMessage = isAr
+      ? `مرحبا، أنا مهتم بـ ${brand} ${model} (${year}) المعروضة على موقعكم.`
+      : `Bonjour, je suis intéressé par la ${brand} ${model} (${year}) publiée sur votre site.`;
 
     return (
       <article
@@ -93,11 +106,11 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
           {/* Top-left status stack */}
           <div className="absolute left-4 top-4 flex flex-col items-start gap-2">
             <Badge variant={condition === "neuf" ? "solid" : "gold"} size="sm">
-              {condition === "neuf" ? "Neuf" : "Occasion"}
+              {condition === "neuf" ? t("Neuf", "جديدة") : t("Occasion", "مستعملة")}
             </Badge>
             {reserved ? (
               <Badge variant="destructive" size="sm">
-                Réservé
+                {t("Réservé", "محجوزة")}
               </Badge>
             ) : null}
           </div>
@@ -121,7 +134,7 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
             ) : null}
           </div>
           <div className="text-right shrink-0">
-            <p className="text-caption text-muted-foreground">Prix</p>
+            <p className="text-caption text-muted-foreground">{t("Prix", "السعر")}</p>
             <p className="text-odometer mt-1 text-lg text-gold">
               {formatPriceDzd(priceDzd, locale)}
             </p>
@@ -130,10 +143,10 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
 
         {/* Spec row */}
         <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-hairline px-6 pt-4">
-          <SpecItem icon={Calendar} label="Année" value={String(year)} />
-          <SpecItem icon={Gauge} label="Kilométrage" value={formatMileage(mileageKm, locale)} />
-          <SpecItem icon={Fuel} label="Carburant" value={fuelLabel[fuel]} />
-          <SpecItem icon={Cog} label="Boîte" value={transmissionLabel[transmission]} />
+          <SpecItem icon={Calendar} label={t("Année", "السنة")} value={String(year)} />
+          <SpecItem icon={Gauge} label={t("Kilométrage", "المسافة")} value={formatMileage(mileageKm, locale)} />
+          <SpecItem icon={Fuel} label={t("Carburant", "الوقود")} value={fuelLabel[fuel]} />
+          <SpecItem icon={Cog} label={t("Boîte", "ناقل الحركة")} value={transmissionLabel[transmission]} />
         </dl>
 
         {/* Highlights */}
@@ -157,7 +170,7 @@ export const VehicleCard = React.forwardRef<HTMLElement, VehicleCardProps>(
             className="flex-1"
             onClick={() => onView?.(vehicle)}
           >
-            Voir le véhicule
+            {t("Voir le véhicule", "عرض السيارة")}
             <ArrowUpRight />
           </Button>
           <WhatsAppButton
